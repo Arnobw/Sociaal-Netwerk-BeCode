@@ -5,6 +5,9 @@ if (isset($_POST['createaccount'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
         $email = $_POST['email'];
+        $age = $_POST['age'];
+        $about = $_POST['about'];
+        $colour = $_POST['colour'];
 
         if (!DB::query('SELECT username FROM users WHERE username=:username', array(':username'=>$username))) {
 
@@ -18,7 +21,7 @@ if (isset($_POST['createaccount'])) {
 
                                 if (!DB::query('SELECT email FROM users WHERE email=:email', array(':email'=>$email))) {
 
-                                        DB::query('INSERT INTO users VALUES (\'\', :username, :password, :email)', array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email));
+                                        DB::query('INSERT INTO users VALUES (\'\', :username, :password, :email)', array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email, ':age'=>$age, ':about'=>$about, ':colour'=>$colour));
                                         echo "Success!";
                                 } else {
                                         echo 'Email in use!';
@@ -47,5 +50,8 @@ if (isset($_POST['createaccount'])) {
 <input type="text" name="username" value="" placeholder="Username ..."><p />
 <input type="password" name="password" value="" placeholder="Password ..."><p />
 <input type="email" name="email" value="" placeholder="someone@somesite.com"><p />
+<input type="number" name="age" value="" placeholder="Your age"><p />
+<input type="text" name="about" value="" placeholder="Tell me about you"><p />
+<input type="text" name="colour" value="" placeholder="Favourite colour"><p />
 <input type="submit" name="createaccount" value="Create Account">
 </form>
