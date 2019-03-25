@@ -14,6 +14,7 @@ if(isset($_POST['login'])){
             $user_id = DB::query('SELECT id FROM users WHERE username=:username', array(':username'=>$username))[0]['id'];
             DB::query('INSERT INTO login_tokens VALUES (\'\', :token, :user_id)', array(':token'=>sha1($token), ':user_id'=>$user_id));
 
+            setcookie("SNID", $token, time() + 60 * 60 * 2 * 7, '/', NULL, NULL, TRUE) 
             
         }else{
             echo 'Incorrect Password!<br/>';
@@ -39,7 +40,6 @@ if(isset($_POST['login'])){
     <title>Document</title>
 </head>
 <body>
-<div class="row">
 <div class="container">
 <div class="col-lg-5 offset-lg-3">
 <form action="login.php" method="post" class="text-center border border-light p-5 mx-auto my-5">
@@ -47,10 +47,10 @@ if(isset($_POST['login'])){
     <p class="h4 mb-4">Sign in</p>
 
     <!-- Email -->
-    <input type="text" id="defaultLoginFormUsername" class="form-control mb-4" name="username" placeholder="Username">
+    <input type="text" id="defaultLoginFormUsername" class="form-control mb-4 input-xlarge" name="username" placeholder="Username">
 
     <!-- Password -->
-    <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" name="password" placeholder="Password">
+    <input type="password" id="defaultLoginFormPassword" class="form-control mb-4 input-xlarge" name="password" placeholder="Password">
 
     <div class="d-flex justify-content-around">
         <div>
@@ -71,12 +71,11 @@ if(isset($_POST['login'])){
 
     <!-- Register -->
     <p>Not a member?
-        <a href="">Register</a>
+        <a href="create-account.php">Register</a>
     </p>
 
 
 </form>
-</div>
 </div>
 </div>
 <!-- Js magic below -->
