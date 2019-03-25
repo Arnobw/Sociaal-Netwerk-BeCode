@@ -71,7 +71,7 @@ if(isset($_POST['login'])){
 
     <!-- Register -->
     <p>Not a member?
-        <a href="">Register</a>
+        <a href="create-account.php">Register</a>
     </p>
 
 
