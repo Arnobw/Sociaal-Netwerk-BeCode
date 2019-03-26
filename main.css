@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Oxygen+Mono');
+
+body {
+    font-family: 'Oxygen Mono', monospace;
+}
+
 #container {
     display: flex;
     flex-direction: column;
@@ -47,5 +53,11 @@ margin:0 auto;
 #bold {
     font-weight: bold;
     border-bottom:solid 1px #06080A;
-    margin-bottom:5px;
+    margin-bottom:10px;
+    color:#FA0700;
+   
+}
+
+p {
+    margin:5px;
 }

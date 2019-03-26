@@ -1,9 +1,16 @@
-<?php
+ <?php
 include('./classes/DB.php');
 include('./classes/Login.php');
 
+
+if (Login::isLoggedIn()) {
+        echo "logged in";
+} else {
+        echo "not logged in";
+}
 $username = "";
-$age="";
+
+$isFollowing = False;
 if (isset($_GET['username'])) {
         if (DB::query('SELECT username FROM users WHERE username=:username', array(':username'=>$_GET['username']))) {
 
@@ -12,16 +19,35 @@ if (isset($_GET['username'])) {
                 $about = DB::query('SELECT about FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['about'];
                 $colour = DB::query('SELECT colour FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['colour'];
                 $topping = DB::query('SELECT topping FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['topping'];
-                if (isset($_POST['follow'])) {
+                $userid = DB::query('SELECT id FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['id'];
+                 $followerid = Login::isLoggedIn();
+                
+                 if (isset($_POST['follow'])) {
 
-                        $userid = DB::query('SELECT id FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['id'];
-                        $followerid = Login::isLoggedIn();
+                      
+                     
+
+
 
                         if (!DB::query('SELECT follower_id FROM followers WHERE user_id=:userid', array(':userid'=>$userid))) {
                                 DB::query('INSERT INTO followers VALUES (\'\', :userid, :followerid)', array(':userid'=>$userid, ':followerid'=>$followerid));
+                                echo "You're now following " . $username . ".";
                         } else {
-                                echo 'Already following!';
+                                echo 'Already following '. $username .'!';
                         }
+                }
+                if (isset($_POST['unfollow'])) {
+                        if ($userid != $followerid) {
+                                if (DB::query('SELECT follower_id FROM followers WHERE user_id=:userid', array(':userid'=>$userid))) {
+                                        DB::query('DELETE FROM followers WHERE user_id=:userid AND follower_id=:followerid', array(':userid'=>$userid, ':followerid'=>$followerid));
+                                }
+                                $isFollowing = False;
+                                echo "You unfollowed " . $username;
+                        }
+                }
+                if (DB::query('SELECT follower_id FROM followers WHERE user_id=:userid', array(':userid'=>$userid))) {
+                        //echo 'Already following!';
+                        $isFollowing = True;
                 }
 
         } else {
@@ -37,7 +63,7 @@ if (isset($_GET['username'])) {
 <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Page Title</title>
+        <title><?php echo $username ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" media="screen" href="main.css">
         <script src="main.js"></script>
@@ -53,14 +79,22 @@ if (isset($_GET['username'])) {
 <div id="container2">
 
 <p><span id="bold">Age :</span> <br/> <?php echo $age ?></p>
-<p> <span id="bold">bout <?php echo $username; ?>: </span> <br/> 
+<p> <span id="bold">About <?php echo $username; ?>: </span> <br/> 
 <?php echo $about; ?>
 </p>
 
 <p><span id="bold">Their favourite colour is </span> <br/>  <?php echo $colour?>. </p>
 <p> <span id="bold"><?php echo $username ?>'s preferred pizza topping is </span> <br /> <?php echo $topping; ?>!</p>
 <form action="profile.php?username=<?php echo $username; ?>" method="post">
-        <input type="submit" name="follow" value="Follow">
+        <?php
+        if ($userid != $followerid) {
+                if ($isFollowing) {
+                        echo '<input type="submit" name="unfollow" value="Unfollow">';
+                } else {
+                        echo '<input type="submit" name="follow" value="Follow">';
+                }
+        }
+        ?>
 </form>
 </div>
 </article>
@@ -70,4 +104,6 @@ if (isset($_GET['username'])) {
 
     
 </body>
-</html>
+</html> 
+
+
