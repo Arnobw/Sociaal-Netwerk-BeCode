@@ -1,5 +1,5 @@
 <?php
-include('../modal/connect.php');
+include('./modal/connect.php');
 if (isset($_POST['createaccount'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];

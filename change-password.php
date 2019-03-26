@@ -1,6 +1,6 @@
 <?php
-include('./classes/DB.php');
-include('./classes/Login.php');
+include('./modal/connect.php');
+include('./controllers/logincontrol.php');
 $tokenIsValid = False;
 if (Login::isLoggedIn()) {
 

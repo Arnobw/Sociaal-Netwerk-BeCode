@@ -3,7 +3,7 @@
 class DB {
 
   // Properties
-  private static $dbHost = "127.0.0.1";
+  private static $dbHost = "localhost";
 	private static $dbName = "socialnetwork";
 	private static $dbUser = "root";
 	private static $dbPass = "";

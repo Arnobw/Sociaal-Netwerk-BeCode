@@ -1,5 +1,5 @@
 <?php
-include('./classes/DB.php');
+include('./modal/connect.php');
 
 if (isset($_POST['resetpassword'])) {
 
