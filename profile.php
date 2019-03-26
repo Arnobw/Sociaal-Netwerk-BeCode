@@ -34,6 +34,7 @@ if (isset($_GET['username'])) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,32 +43,43 @@ if (isset($_GET['username'])) {
         <link rel="stylesheet" type="text/css" media="screen" href="assets/styles/main.css">
         <script src="main.js"></script>
 </head>
+
 <body>
-<div id="container">
-<h1 id="profilename"><?php echo $username; ?>'s Profile</h1>
+        <div id="container">
+                <h1 id="profilename"><?php echo $username; ?>'s Profile</h1>
 
-<article id="info">
+                <article id="info">
 
-<div id="eendje"></div>
+                        <div id="eendje"></div>
 
-<div id="container2">
+                        <div id="container2">
 
-<p><span id="bold">Age :</span> <br/> <?php echo $age ?></p>
-<p> <span id="bold">bout <?php echo $username; ?>: </span> <br/> 
-<?php echo $about; ?>
-</p>
+                                <p><span id="bold">Age :</span> <br /> <?php echo $age ?></p>
+                                <p> <span id="bold">bout <?php echo $username; ?>: </span> <br />
+                                        <?php echo $about; ?>
+                                </p>
 
-<p><span id="bold">Their favourite colour is </span> <br/>  <?php echo $colour?>. </p>
-<p> <span id="bold"><?php echo $username ?>'s preferred pizza topping is </span> <br /> <?php echo $topping; ?>!</p>
-<form action="profile.php?username=<?php echo $username; ?>" method="post">
-        <input type="submit" name="follow" value="Follow">
+                                <p><span id="bold">Their favourite colour is </span> <br /> <?php echo $colour?>. </p>
+                                <p> <span id="bold"><?php echo $username ?>'s preferred pizza topping is </span> <br />
+                                        <?php echo $topping; ?>!</p>
+                                <form action="profile.php?username=<?php echo $username; ?>" method="post">
+                                        <input type="submit" name="follow" value="Follow">
+                                </form>
+                        </div>
+                </article>
+           
+        </div>
+
+       
+     <form action="profile.php?username=<?php echo $username; ?>" method="post">
+        <textarea name="postbody" rows="8" cols="80"></textarea>
+        <input type="submit" name="post" value="Post">
 </form>
-</div>
-</article>
 
-</div>
+<!-- <div class="posts">
+        <?php echo $posts; ?>
+</div> -->
 
-
-    
 </body>
+
 </html>

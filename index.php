@@ -7,6 +7,5 @@ if (Login::isLoggedIn()) {
         echo Login::isLoggedIn();
 } else {
         echo 'Not logged in';
-}
-
+} 
 ?>
