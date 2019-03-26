@@ -3,12 +3,15 @@ include('./classes/DB.php');
 include('./classes/Login.php');
 
 $username = "";
-
+$age="";
 if (isset($_GET['username'])) {
         if (DB::query('SELECT username FROM users WHERE username=:username', array(':username'=>$_GET['username']))) {
 
                 $username = DB::query('SELECT username FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['username'];
-                $age = DB::query('SELECT age FROM users WHERE age=:age', array(':age'=>$_GET['age']))[0]['age'];
+                $age = DB::query('SELECT age FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['age'];
+                $about = DB::query('SELECT about FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['about'];
+                $colour = DB::query('SELECT colour FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['colour'];
+                $topping = DB::query('SELECT topping FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['topping'];
                 if (isset($_POST['follow'])) {
 
                         $userid = DB::query('SELECT id FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['id'];
@@ -27,14 +30,44 @@ if (isset($_GET['username'])) {
 }
 
 ?>
-<h1><?php echo $username; ?>'s Profile</h1>
 
-<article>
 
-<h2> About <?php echo $username; ?>:</h2>
-<p>Age : <?php echo $age ?></p>
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Page Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+        <script src="main.js"></script>
+</head>
+<body>
+<div id="container">
+<h1 id="profilename"><?php echo $username; ?>'s Profile</h1>
 
-</article>
+<article id="info">
+
+<div id="eendje"></div>
+
+<div id="container2">
+
+<p><span id="bold">Age :</span> <br/> <?php echo $age ?></p>
+<p> <span id="bold">bout <?php echo $username; ?>: </span> <br/> 
+<?php echo $about; ?>
+</p>
+
+<p><span id="bold">Their favourite colour is </span> <br/>  <?php echo $colour?>. </p>
+<p> <span id="bold"><?php echo $username ?>'s preferred pizza topping is </span> <br /> <?php echo $topping; ?>!</p>
 <form action="profile.php?username=<?php echo $username; ?>" method="post">
         <input type="submit" name="follow" value="Follow">
 </form>
+</div>
+</article>
+
+</div>
+
+
+    
+</body>
+</html>
