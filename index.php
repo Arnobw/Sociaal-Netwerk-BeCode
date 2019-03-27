@@ -3,6 +3,8 @@ include('./classes/DB.php');
 include('./classes/Login.php');
 
 
+
+
 $username = DB::query("SELECT username FROM users WHERE id=:id", array(':id'=>Login::isLoggedIn()));
 if (Login::isLoggedIn()) {
         echo 'Logged In as ' . $username[0]['username'] . "!";
