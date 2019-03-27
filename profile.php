@@ -1,11 +1,16 @@
 <?php
 include('./modal/connect.php');
 include('./controllers/logincontrol.php');
+
+$username = DB::query("SELECT username FROM users WHERE id=:id", array(':id'=>Login::isLoggedIn()));
+$currentuser = DB::query("SELECT id FROM users WHERE id=:id", array(':id'=>Login::isLoggedIn()));
 if (Login::isLoggedIn()) {
-        echo "logged in";
+        echo 'Logged In as ' . $username[0]['username'] . "!";
+       
 } else {
-        echo "not logged in";
+        echo 'Not logged in';
 }
+ echo '<br/>';
 $username = "";
 $isFollowing = False;
 if (isset($_GET['username'])) {
@@ -15,6 +20,7 @@ if (isset($_GET['username'])) {
                 $about = DB::query('SELECT about FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['about'];
                 $colour = DB::query('SELECT colour FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['colour'];
                 $topping = DB::query('SELECT topping FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['topping'];
+           
                 $userid = DB::query('SELECT id FROM users WHERE username=:username', array(':username'=>$_GET['username']))[0]['id'];
                 $followerid = Login::isLoggedIn();
                
@@ -50,13 +56,14 @@ if (isset($_GET['username'])) {
         }
         if (isset($_POST['postbody'])) {
                 $postbody = $_POST['postbody'];
-                                                     
-                DB::query('INSERT INTO posts VALUES ("", :postbody, NOW(), :userid)', array(':postbody'=>$postbody, ':userid'=>$userid));
+                DB::query('INSERT INTO posts VALUES ("", :postbody, NOW(), :userid)', array(':postbody'=>$postbody, ':userid'=>$currentuser[0]['id']));
 }
-        $dbposts = DB::query('SELECT * FROM posts WHERE user_id=:userid', array(':userid'=>$userid));
+        $dbposts = DB::query('SELECT * FROM posts');
+      
+   
         $posts = "";
         foreach($dbposts as $p) {
-                $posts .= htmlspecialchars($p['body'])."
+                $posts .= htmlspecialchars($p['body']. " " .$p['user_id'])."
                 <form action='profile.php?username=$username"."' method='post'>
                         <input type='submit' name='like' value='Like'>
                 </form>
@@ -64,7 +71,6 @@ if (isset($_GET['username'])) {
                 ";
         }
 }
-
 ?>
 
 
@@ -75,7 +81,7 @@ if (isset($_GET['username'])) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title><?php echo $username ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" media="screen" href="assets/styles/main.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="main.css">
         <script src="main.js"></script>
 </head>
 <body>
@@ -106,11 +112,10 @@ if (isset($_GET['username'])) {
         }
         ?>
 </form>
+
 </div>
+
 </article>
-
-</div>
-
 <form action="profile.php?username=<?php echo $username; ?>" method="post">
         <textarea name="postbody" rows="8" cols="80"></textarea>
         <input type="submit" name="post" value="Post">
@@ -118,9 +123,11 @@ if (isset($_GET['username'])) {
 
  <div class="posts">
         <?php echo $posts; ?>
-        <?php echo $poster; ?>
 
 
 </div> 
+</div>
+
+
 </body>
 </html> 
