@@ -14,10 +14,11 @@ require_once('classes/login.php');
       require_once('models/'.$class_name.'.php');
     }
   }); 
+  var_dump($_GET['url']);
   require_once('Routes.php');
   if(Login::isLoggedIn()) {
     echo 'Logged In';
-    echo Login::isLogedIn();
+    echo Login::isLoggedIn();
   } else { 
     echo 'Not logged in';
   }

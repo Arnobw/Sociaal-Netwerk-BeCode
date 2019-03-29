@@ -5,12 +5,13 @@ Route::set('index.php', function(){
 
 });
 
-Route::set('views/register.php', function(){
-  Register::CreateView('register');
+Route::set('register', function(){
+  Register::CreateView('views/register');
+  Register::doSomething();
 });
 
-Route::set('views/login.php', function(){
-  Login::CreateView('login');
-});
+Route::set('login', function(){
+  LoginController::CreateView('views/login');
+  });
 
 ?>

@@ -1,6 +1,5 @@
 <?php
-include('./modal/connect.php');
-include('./controllers/logincontrol.php');
+
 
 $username = DB::query("SELECT username FROM users WHERE id=:id", array(':id'=>Login::isLoggedIn()));
 $currentuser = DB::query("SELECT id FROM users WHERE id=:id", array(':id'=>Login::isLoggedIn()));

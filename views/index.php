@@ -13,7 +13,7 @@
 <body>
         <div id="container">
                 <div id="info">
-                        <h1>Newest users:</h1>
+                        <h1>Users:</h1>
                         <ul>
                                            
                         </ul>
