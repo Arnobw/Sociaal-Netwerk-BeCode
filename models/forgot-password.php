@@ -1,5 +1,5 @@
 <?php
-include('./modal/connect.php');
+require_once('../classes/DB.php');
 
 if (isset($_POST['resetpassword'])) {
 
@@ -12,10 +12,4 @@ if (isset($_POST['resetpassword'])) {
         echo '<br />';
         echo $token;
 }
-
 ?>
-<h1>Forgot Password</h1>
-<form action="forgot-password.php" method="post">
-        <input type="text" name="email" value="" placeholder="Email ..."><p />
-        <input type="submit" name="resetpassword" value="Reset Password">
-</form>
