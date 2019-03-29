@@ -2,7 +2,7 @@
 class LoginController extends Controller
 {
         public static function doSomething() {
-                              require_once('../classes/DB.php');
+                             
                 if(isset($_POST['login'])){
                     $username = $_POST['username'];
                     $pass = $_POST['password'];

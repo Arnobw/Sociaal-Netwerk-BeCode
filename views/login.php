@@ -19,7 +19,7 @@
 <body>
     <div class="container">
         <div class="col-lg-5 offset-lg-3">
-            <form action="login.php" method="post" class="text-center border border-light p-5 mx-auto my-5">
+            <form action="profile" method="post" class="text-center border border-light p-5 mx-auto my-5">
 
                 <p class="h4 mb-4">Sign in</p>
 

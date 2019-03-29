@@ -23,7 +23,15 @@
     flex-direction: row;
   
 }
-
+#leaving {
+    background-image:url('img/leave.jpeg');
+    background-repeat: no-repeat;
+    background-size:cover;
+    width:400px;
+    height: 400px;
+    outline: solid 2px #06080A;
+    margin:0 auto;  
+}
 #eendje {
 background-image:url('img/eend.png');
 background-repeat: no-repeat;
