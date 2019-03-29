@@ -1,7 +1,7 @@
 <?php
 
-Route::set('views/index.php', function(){
-  Index::CreateView('index');
+Route::set('index.php', function(){
+  Index::CreateView('views/index');
 
 });
 

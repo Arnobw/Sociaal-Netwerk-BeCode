@@ -15,9 +15,7 @@
                 <div id="info">
                         <h1>Newest users:</h1>
                         <ul>
-                     <?php   echo $username;
-                     ?>
-                           
+                                           
                         </ul>
                 </div>
         </div>
